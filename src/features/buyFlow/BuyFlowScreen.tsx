@@ -1,11 +1,5 @@
 import { useRef, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  ListRenderItemInfo,
-  SafeAreaView,
-} from "react-native";
+import { FlatList, ListRenderItemInfo } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 
 import { MainStackParamList } from "../../navigation/MainStackNavigator";
@@ -14,6 +8,7 @@ import { NavBar } from "../../components/NavBar";
 import { BuyFlowData, InputProps, ProductId } from "./types";
 import { DataInput } from "./components/DataInput";
 import { Summary } from "./components/Summary";
+import { ViewContainer } from "../../containers/ViewContainer";
 
 export const BuyFlowScreen = () => {
   const { params = { productId: "devIns" } } =
@@ -65,23 +60,21 @@ export const BuyFlowScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <NavBar onPressBack={onPressBack}>
-          {TITLE_TO_PRODUCT_ID[params.productId]}
-        </NavBar>
-        <FlatList
-          ref={flatList}
-          contentContainerStyle={{ paddingTop: 40 }}
-          horizontal
-          data={PRODUCT_IDS_TO_STEPS[params.productId]}
-          renderItem={renderItem}
-          showsHorizontalScrollIndicator={false}
-          pagingEnabled
-          scrollEnabled={false}
-        />
-      </SafeAreaView>
-    </View>
+    <ViewContainer>
+      <NavBar onPressBack={onPressBack}>
+        {TITLE_TO_PRODUCT_ID[params.productId]}
+      </NavBar>
+      <FlatList
+        ref={flatList}
+        contentContainerStyle={{ paddingTop: 40 }}
+        horizontal
+        data={PRODUCT_IDS_TO_STEPS[params.productId]}
+        renderItem={renderItem}
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        scrollEnabled={false}
+      />
+    </ViewContainer>
   );
 };
 
@@ -138,9 +131,3 @@ const INPUT_PROPS_TO_STEPS: { [key in StepName]: InputProps[] } = {
   ],
   summary: [],
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
