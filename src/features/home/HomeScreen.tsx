@@ -12,12 +12,14 @@ export const HomeScreen = () => {
       <Text style={styles.title}>Welcome to GetSafe!</Text>
       <Button
         title="Purchase dev insurance"
+        accessibilityLabel="Ope dev insurance purchase flow"
         onPress={() => {
           navigation.navigate("BuyFlow", { productId: "devIns" });
         }}
       />
       <Button
         title="Purchase designer insurance"
+        accessibilityLabel="Ope designer insurance purchase flow"
         onPress={() => {
           navigation.navigate("BuyFlow", { productId: "designerIns" });
         }}

@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 import { FlatList, ListRenderItemInfo } from "react-native";
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 
-import { MainStackParamList } from "../../navigation/MainStackNavigator";
 import { NavBar } from "../../components/NavBar";
+import { ViewContainer } from "../../containers/ViewContainer";
+import { MainStackParamList } from "../../navigation/MainStackNavigator";
 
 import { BuyFlowData, InputProps, ProductId } from "./types";
 import { DataInput } from "./components/DataInput";
 import { Summary } from "./components/Summary";
-import { ViewContainer } from "../../containers/ViewContainer";
 
 export const BuyFlowScreen = () => {
   const { params = { productId: "devIns" } } =
@@ -73,6 +73,10 @@ export const BuyFlowScreen = () => {
         showsHorizontalScrollIndicator={false}
         pagingEnabled
         scrollEnabled={false}
+        keyExtractor={(item) => item}
+        onScrollToIndexFailed={() => {
+          flatList.current?.scrollToIndex({ index: 0 });
+        }}
       />
     </ViewContainer>
   );
@@ -96,8 +100,8 @@ const INPUT_PROPS_TO_STEPS: { [key in StepName]: InputProps[] } = {
       name: "age",
       title: "Age",
       type: "numeric",
-      ariaLabel: "Enter your age here",
-      initialValue: 0,
+      placeholder: "Enter your age here",
+      accessibilityLabel: "Age inpit",
       required: true,
     },
   ],
@@ -106,8 +110,8 @@ const INPUT_PROPS_TO_STEPS: { [key in StepName]: InputProps[] } = {
       name: "email",
       title: "Email",
       type: "email-address",
-      ariaLabel: "Enter your email here",
-      initialValue: "",
+      placeholder: "Enter your email here",
+      accessibilityLabel: "Email input",
       required: true,
     },
   ],
@@ -116,16 +120,16 @@ const INPUT_PROPS_TO_STEPS: { [key in StepName]: InputProps[] } = {
       name: "firstName",
       title: "First name",
       type: "default",
-      ariaLabel: "Enter your first name here",
-      initialValue: "",
+      placeholder: "Enter your first name here",
+      accessibilityLabel: "First name input",
       required: true,
     },
     {
       name: "lastName",
       title: "Last name",
       type: "default",
-      ariaLabel: "Enter your last name here",
-      initialValue: "",
+      placeholder: "Enter your last name here",
+      accessibilityLabel: "Last name input",
       required: true,
     },
   ],

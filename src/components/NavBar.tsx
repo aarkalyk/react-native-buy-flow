@@ -18,7 +18,7 @@ export const NavBar = ({ children, onPressBack }: Props) => {
 
 const BackButton = ({ onPress }: { onPress(): void }) => {
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity accessibilityLabel="Back button" onPress={onPress}>
       <Svg.Svg width="24pt" height="24pt" viewBox="0 0 700 700">
         <Svg.Path
           fill="black"

@@ -18,37 +18,43 @@ interface Props {
 
 export const DataInput: FC<Props> = ({ onPressNext, inputProps }) => {
   const { width } = useWindowDimensions();
+
   const [data, setData] = useState<Partial<BuyFlowData>>({});
 
   const canProceedToNextStep = useMemo(
-    () => inputProps.every(({ name }) => data[name]),
+    () =>
+      inputProps
+        .filter((item) => item.required)
+        .every(({ name }) => data[name]),
     [data, inputProps]
   );
 
   return (
     <View style={[styles.container, { width }]}>
       <KeyboardAvoidingView>
-        {inputProps.map(({ name, title, type }) => (
-          <View key={name}>
-            <Text style={{ marginBottom: 20 }}>{title + ": "}</Text>
-            <TextInput
-              style={styles.textInput}
-              autoCorrect={false}
-              onChange={(event) => {
-                setData({
-                  ...data,
-                  [name]:
-                    type === "numeric"
-                      ? Number(event.nativeEvent.text)
-                      : event.nativeEvent.text,
-                });
-              }}
-              keyboardType={type}
-            />
-          </View>
-        ))}
+        {inputProps.map(
+          ({ name, title, type, placeholder, accessibilityLabel }) => (
+            <View key={name}>
+              <Text style={{ marginBottom: 20 }}>{title + ": "}</Text>
+              <TextInput
+                style={styles.textInput}
+                autoCorrect={false}
+                onChangeText={(text) => {
+                  setData({
+                    ...data,
+                    [name]: type === "numeric" ? Number(text) : text,
+                  });
+                }}
+                keyboardType={type}
+                placeholder={placeholder}
+                accessibilityLabel={accessibilityLabel}
+              />
+            </View>
+          )
+        )}
         <Button
           title="Next"
+          accessibilityLabel="Proceed to the next step"
           onPress={() => onPressNext(data)}
           disabled={!canProceedToNextStep}
         />
@@ -67,5 +73,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "black",
     marginBottom: 20,
+    paddingBottom: 5,
   },
 });

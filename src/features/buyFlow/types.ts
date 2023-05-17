@@ -15,7 +15,7 @@ export type InputProps = {
   name: InputName;
   title: string;
   type: KeyboardTypeOptions;
-  ariaLabel: string;
-  initialValue: string | number;
+  placeholder: string;
+  accessibilityLabel: string;
   required?: boolean;
 };
