@@ -20,7 +20,7 @@ export const Summary: FC<Props> = ({ productId, collectedData }) => {
 
   return (
     <View style={[styles.container, { width }]}>
-      <Text>Summary:</Text>
+      <Text style={styles.title}>Summary:</Text>
       {(Object.entries(collectedData) as [InputName, string][]).map(
         ([name, value]) => (
           <Text key={name}>{TITLE_TO_INPUT_NAME[name] + ": " + value}</Text>
@@ -34,5 +34,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+  },
+  title: {
+    marginBottom: 10,
+    fontWeight: "bold",
   },
 });
