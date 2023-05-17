@@ -1,10 +1,13 @@
 import { render, fireEvent } from "@testing-library/react-native";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 
 import { BuyFlowScreen } from "./BuyFlowScreen";
 
 jest.mock("@react-navigation/native");
 const mockUseRoute = useRoute as jest.MockedFunction<typeof useRoute>;
+const mockUseNavigation = useNavigation as jest.MockedFunction<
+  typeof useNavigation
+>;
 
 describe("<BuyFlowScreen />", () => {
   afterEach(() => {
@@ -86,6 +89,54 @@ describe("<BuyFlowScreen />", () => {
       expect(screen.queryByText(`Age: ${mockAge}`)).not.toBeNull();
       expect(screen.queryByText(`First name: ${mockFirstName}`)).not.toBeNull();
       expect(screen.queryByText(`Last name: ${mockLastName}`)).not.toBeNull();
+    });
+  });
+
+  describe("when pressing on the back button", () => {
+    describe("when on the first step", () => {
+      it("should exit the buy flow", async () => {
+        mockUseRoute.mockReturnValue({
+          params: { productId: "devIns" },
+        } as any);
+        const mockGoBack = jest.fn();
+        mockUseNavigation.mockReturnValue({ goBack: mockGoBack } as any);
+
+        const screen = render(<BuyFlowScreen />);
+
+        const backButtonStep = screen.getByLabelText(/Back/i);
+        fireEvent.press(backButtonStep);
+
+        expect(mockGoBack).toHaveBeenCalled();
+      });
+    });
+
+    describe("when on the subsequent steps", () => {
+      it("should go back to the previous step", async () => {
+        mockUseRoute.mockReturnValue({
+          params: { productId: "devIns" },
+        } as any);
+        const mockGoBack = jest.fn();
+        mockUseNavigation.mockReturnValue({ goBack: mockGoBack } as any);
+
+        const screen = render(<BuyFlowScreen />);
+
+        expect(screen.queryByText(/Developer insurance/i)).not.toBeNull();
+
+        // Step 1
+        const mockEmail = "name@example.com";
+        const emailInput = screen.getByPlaceholderText(/email/i);
+        fireEvent.changeText(emailInput, mockEmail);
+
+        // Progressing to step 2
+        const nextButtonStep1 = screen.getAllByText(/Next/i)[0];
+        fireEvent.press(nextButtonStep1);
+
+        // Getting back to step 1
+        const backButtonStep = screen.getByLabelText(/Back/i);
+        fireEvent.press(backButtonStep);
+
+        expect(mockGoBack).not.toHaveBeenCalled();
+      });
     });
   });
 });
