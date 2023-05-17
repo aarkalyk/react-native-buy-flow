@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { HomeScreen } from "../features/home/HomeScreen";
 import { BuyFlowScreen } from "../features/buyFlow/BuyFlowScreen";
 import { ProductId } from "../features/buyFlow/types";
@@ -20,7 +21,13 @@ export const MainStackNavigator = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="BuyFlow" component={BuyFlowScreen} />
+      <Stack.Screen
+        name="BuyFlow"
+        component={BuyFlowScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };

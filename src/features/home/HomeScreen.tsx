@@ -1,35 +1,36 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import { Text, Button, StyleSheet } from "react-native";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 
 import { MainStackParamList } from "../../navigation/MainStackNavigator";
+import { ViewContainer } from "../../containers/ViewContainer";
 
 export const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackParamList>>();
 
   return (
-    <View style={styles.container}>
-      <Text>Welcome to GetSafe!</Text>
+    <ViewContainer>
+      <Text style={styles.title}>Welcome to GetSafe!</Text>
       <Button
         title="Purchase dev insurance"
+        accessibilityLabel="Ope dev insurance purchase flow"
         onPress={() => {
           navigation.navigate("BuyFlow", { productId: "devIns" });
         }}
       />
       <Button
         title="Purchase designer insurance"
+        accessibilityLabel="Ope designer insurance purchase flow"
         onPress={() => {
           navigation.navigate("BuyFlow", { productId: "designerIns" });
         }}
       />
-    </View>
+    </ViewContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+  title: {
+    marginVertical: 40,
+    textAlign: "center",
   },
 });
