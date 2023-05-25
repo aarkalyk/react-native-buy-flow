@@ -49,10 +49,10 @@ Contains features of the app. Each feature has dedicated folders for files relat
 
 ## Demo
 
-![buy insurance flow](demo/buyFlow.gif)
+| Try it yourself | Screen recording |
+| ------------- | ------------- |
+| <img width="300" height="300" src="demo/expoQR.png" /> | ![buy insurance flow](demo/buyFlow.gif) |
 
-To try it yourself either follow [the project link on expo](https://expo.dev/@arkalykakash/react-native-buy-flow?serviceType=classic&distribution=expo-go) or simply scan the QR code below.
-
-<img width="300" height="300" src="demo/expoQR.png" />
+Alternitavely you can run the app on your device following [the project link on expo](https://expo.dev/@arkalykakash/react-native-buy-flow?serviceType=classic&distribution=expo-go).
 
 ---
