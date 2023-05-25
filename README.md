@@ -5,6 +5,8 @@ buying flow (further referred to as “buyflow”). A buyflow is a sequence of s
 a specific order. Each step collects some data from a user that is later presented for
 confirmation in the summary step.
 
+---
+
 ## Running
 
 - Install dependencies: `yarn install`.
@@ -14,6 +16,8 @@ confirmation in the summary step.
 - Run on iOS: `yarn ios`.
 
 - Run the server: `yarn start`. Then use app Expo Go on your mobile and scan QR code on the terminal.
+
+---
 
 ## Structure of the project
 
@@ -46,6 +50,8 @@ Contains navigation related files.
 ### features
 
 Contains features of the app. Each feature has dedicated folders for files related to it.
+
+---
 
 ## Demo
 
